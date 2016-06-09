@@ -1,24 +1,34 @@
-// peso / altura ²
+function calculaImc(paciente){
+	if (paciente.altura != 0){
 
-var tdPeso = document.getElementById('peso-2');
-var tdAltura = document.getElementById('altura-2');
-// var peso = 100;
-// var altura = 0;
 
-var peso = tdPeso.textContent;
-var altura = tdAltura.textContent;
+		var imc = paciente.peso / (paciente.altura * paciente.altura);
+		return imc;
 
-var paciente = {"peso": tdPeso.textContent, "altura": tdAltura.textContent};
+	} else {
 
-var ehDiferenteDeZero = (altura != 0); 
+		console.log('altura é zero')
 
-if (ehDiferenteDeZero){
-	var tdImc = document.getElementById('imc-2');
-	var imc = paciente.peso / (paciente.altura * paciente.altura);
+	}
+};
 
-	console.log(imc);
+var trsPaciente = document.getElementsByClassName("paciente");
+
+for( posicaoAtual = 0 ; posicaoAtual <= trsPaciente.length - 1; posicaoAtual++){
+
+	var pacienteTr = trsPaciente[posicaoAtual];
+
+	var tdNome = pacienteTr.getElementsByClassName("info-nome")[0];
+	var tdPeso = pacienteTr.getElementsByClassName("info-peso")[0];
+	var tdAltura = pacienteTr.getElementsByClassName("info-altura")[0];
+	var tdImc = pacienteTr.getElementsByClassName("info-imc")[0]
+
+	var pacienteAtual = {"nome": tdNome.textContent, "peso": tdPeso.textContent, "altura": tdAltura.textContent};
+
+
+	var imc = calculaImc(pacienteAtual);
+
 	tdImc.textContent = imc;
+	console.log(imc);
 
-} else {
-	console.log('é zero')
-}
+};
