@@ -1,5 +1,7 @@
 var trsPaciente = document.getElementsByClassName("paciente");
 
+percorreArray(trsPaciente)
+
 for( posicaoAtual = 0 ; posicaoAtual <= trsPaciente.length - 1; posicaoAtual++){
 
 	var pacienteTr = trsPaciente[posicaoAtual];
@@ -26,11 +28,5 @@ for( posicaoAtual = 0 ; posicaoAtual <= trsPaciente.length - 1; posicaoAtual++){
 									}
 							}
 						};
-
-
-	var imc = pacienteAtual.pegaImc();
-	var tdImc = pacienteTr.getElementsByClassName("info-imc")[0]
-
-	tdImc.textContent = imc;
-
-};
+	console.log(pacienteAtual.nome);
+}
