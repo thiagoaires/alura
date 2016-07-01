@@ -1,35 +1,40 @@
-var trsPaciente = document.getElementsByClassName("paciente");
 
-percorreArray(trsPaciente, function(){
-	var pacienteTr = trsPaciente[posicaoAtual];
+var botao = document.getElementById("calcula-imcs");
+// botao.onclick = calculaTodosImc;
+botao.addEventListener("click", function(){
+	var trsPaciente = document.getElementsByClassName("paciente");
 
-	var tdNome = pacienteTr.getElementsByClassName("info-nome")[0];
-	var tdPeso = pacienteTr.getElementsByClassName("info-peso")[0];
-	var tdAltura = pacienteTr.getElementsByClassName("info-altura")[0];
+	percorreArray(trsPaciente, function(){
+		var pacienteTr = trsPaciente[posicaoAtual];
 
-	var pacienteAtual = {
-							"nome": tdNome.textContent,
-							"peso": tdPeso.textContent,
-							"altura": tdAltura.textContent,
-							"pegaImc": function(){
-									if (this.altura != 0){
+		var tdNome = pacienteTr.getElementsByClassName("info-nome")[0];
+		var tdPeso = pacienteTr.getElementsByClassName("info-peso")[0];
+		var tdAltura = pacienteTr.getElementsByClassName("info-altura")[0];
 
-										var imc = this.peso / (this.altura * this.altura);
+		var pacienteAtual = {
+								"nome": tdNome.textContent,
+								"peso": tdPeso.textContent,
+								"altura": tdAltura.textContent,
+								"pegaImc": function(){
+										if (this.altura != 0){
 
-										return imc;
+											var imc = this.peso / (this.altura * this.altura);
 
-									} else {
+											return imc;
 
-										console.log('altura é zero')
+										} else {
 
-									}
-							}
-						};
+											console.log('altura é zero')
+
+										}
+								}
+							};
 
 
-	var imc = pacienteAtual.pegaImc();
-	var tdImc = pacienteTr.getElementsByClassName("info-imc")[0]
+		var imc = pacienteAtual.pegaImc();
+		var tdImc = pacienteTr.getElementsByClassName("info-imc")[0]
 
-	tdImc.textContent = imc;
+		tdImc.textContent = imc;
 
+	});
 });
