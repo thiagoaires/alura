@@ -1,0 +1,37 @@
+@media #{$mq-mobile} {
+	.container {
+		width: 90%;
+	}
+
+	header {
+		height: auto;
+	
+
+	.container{
+		position: static;
+	}
+
+	h1 {
+		max-width: 50%;
+		margin: 0 auto;
+
+		img {
+			max-width: 100%;
+			margin: .5em auto;
+			display: block;
+		}
+
+	}
+
+}
+
+	.menu-pricipal,
+	.menu-pricipal li,
+	.post-destaque,
+	.posts-antigos,
+	form {
+		width: auto;
+	}
+	
+
+}
