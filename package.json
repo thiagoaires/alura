@@ -1,0 +1,19 @@
+{
+  "name": "gulpteste",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "\"echo \\\"error: no test specified\\\" && exit 1\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thiagoaires/alura.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thiagoaires/alura/issues"
+  },
+  "homepage": "https://github.com/thiagoaires/alura#readme"
+}
