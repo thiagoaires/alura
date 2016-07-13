@@ -1,0 +1,27 @@
+<meta charset="utf-8">
+<canvas id="tela" width="600" height="400"></canvas>
+
+<script type="text/javascript">
+
+	var desenhaQuadrado = function(x,y, color){
+
+		var tela = document.getElementById("tela");
+
+		var c = tela.getContext("2d");
+
+
+		c.fillStyle = color;
+		c.fillRect(x,y,40,40);
+
+		c.strokeStyle = "#ffcc00";
+		c.strokeRect(x,y,40,40);
+
+	};
+
+	for(x = 0; x < 600; x += 40){
+
+		desenhaQuadrado(x, 10, "blue");
+
+	};
+
+</script>
