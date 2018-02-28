@@ -4,47 +4,38 @@ class NegociacaoController{
 
         let $ = document.querySelector.bind(document);
         
-        this._inputData       = $('#data');
-        this._inputQuantidade = $('#quantidade');
-        this._inputValor      = $('#valor');
+        this._inputData             = $('#data');
+        this._inputQuantidade       = $('#quantidade');
+        this._inputValor            = $('#valor');
+        this._listaNegociacoes      = new ListaNegociacoes();
 
     }
 
     adiciona(event){
 
-        event.preventDefault();
+        event.preventDefault();``
 
-        let data = new Date(
-            ...this._inputData.value
-            .split('-')
-            /*
-            .map(function(item, indice){
-                return item - indice % 2;
-            })
-            */
-            .map((item, indice) => item - indice % 2)
+        this._listaNegociacoes.adiciona(this._criaNegociacao());
+        this._limpaFormulario();
 
-            /* ####### 
-            qdo se há uma unica instruçao no arrow function(iten - indice...)
-            pode-se omitir o bloco ( colchete, {} ) e colocar inline
+        console.log(this._listaNegociacoes.negociacoes);
+    }
 
-            outra coisa, como soh tem uma instruçao, pode-se remover o return e o ;
-            ####### */
-        );
+    _criaNegociacao(){
 
-        console.log(data);
-
-        let negociacao = new Negociacao(
-            data, 
+        return new Negociacao(
+            DateHelper.textoParaData(this._inputData.value), 
             this._inputQuantidade.value,
             this._inputValor.value
         );
+    }
+    _limpaFormulario(){
 
-        let diaMesAno = negociacao.data.getDate() + '/'
-                        + (negociacao.data.getMonth() + 1) + '/'
-                        + negociacao.data.getFullYear();
+        this._inputData.value = "";
+        this._inputQuantidade.value = 1;
+        this._inputValor.value = 0.0;
 
-        console.log(diaMesAno)
+        this._inputData.focus();
     }
 
 }
