@@ -1,7 +1,5 @@
-var app = require('./config/express')();
+let app = require('./config/express')();
 let porta = 3000;
-
-
 
 app.listen(porta, function(){
 
