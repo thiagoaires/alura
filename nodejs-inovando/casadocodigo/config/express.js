@@ -8,8 +8,13 @@
 //     return app;
 // }
 
+let express = require('express');
+let load = require('express-load');
+
+
+
 module.exports = function(){
-    let app = require('express')();
+    var app = express();
 
     //configuraçao da engine de view
     app.set('view engine', 'ejs');
@@ -17,5 +22,8 @@ module.exports = function(){
     //informando o express da localizacao customizada da pasta views
     app.set('views', './app/views');
 
+    load('routes', {cwd: 'app'})
+        .then('infra')
+        .into(app);
     return app;
 }
