@@ -3,11 +3,12 @@ module.exports = function(app){
 
     app.get('/produtos', function(req, res){
 
-        let connection = app.infra.connectionFactory();
-        connection.query('select * from livros',function(err, results){
+        var connection      = app.infra.connectionFactory();
+        var produtosBanco   = app.infra.produtosBanco;
+
+        produtosBanco.lista(connection, function(erros, resultados){
             //res.send(results);
-            res.render('produtos/lista', {lista: results})
-            console.log('resultado da query');
+            res.render('produtos/lista', {lista: resultados})
         });
 
         connection.end();
