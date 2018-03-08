@@ -1,7 +1,7 @@
 var mysql = require('mysql');
 
 //Factory Method
-let createDBConnection = function(){
+var createDBConnection = function(){
 
     return mysql.createConnection({
         
