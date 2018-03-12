@@ -13,7 +13,7 @@ function mostraNomes(valor) {
 let novaLista = listaDeNomes.forEach(mostraNomes);
 
 
-//outro teste
+//outro teszte
 let saldo = 0;
 
 let depositos = [50, 120, 300];
@@ -34,3 +34,13 @@ depositos.forEach(saldoTotal);
 
 console.log(saldo)
 
+//conteudo da aula 5, mas nao irei fazer um novo js
+/*
+numeros.reduce(function(total,num) {
+    return total * num;
+}, 1);
+*/
+numeros = [1, 5, 5, 6];
+valorFinal = numeros.reduce((total,num) => total * num, 1);
+
+console.log(valorFinal)

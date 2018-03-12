@@ -4,6 +4,8 @@ class Arquivo {
         this._nome = nome;
         this._tamanho = tamanho;
         this._tipo = tipo;
+
+        Object.freeze();
     }
 
     get nome(){
