@@ -10,10 +10,11 @@
 
 let express = require('express');
 let load = require('express-load');
+let bodyParser = require('body-parser');
 
 
+module.exports = function () {
 
-module.exports = function(){
     var app = express();
 
     //configuraçao da engine de view
@@ -22,8 +23,19 @@ module.exports = function(){
     //informando o express da localizacao customizada da pasta views
     app.set('views', './app/views');
 
-    load('routes', {cwd: 'app'})
+    app.use(bodyParser.urlencoded({extended: true}));
+
+    /* ilustraçao ASCII de como funciona require e request
+
+    req -> ~~middlewareBodyParser ->> middlewareAutenticacao~~         funcao que trata requisicao
+    
+    */
+
+    load('routes', {
+            cwd: 'app'
+        })
         .then('infra')
         .into(app);
+
     return app;
 }
