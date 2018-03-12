@@ -38,6 +38,18 @@
                 "salario" : "6000"
             }
         ];
+
+        let funcionariosHTML = funcionarios.map(f => `
+            <tr>
+                <td>${f.nome}</td>
+                <td>${f.endereco}</td>
+                <td>${f.salario}</td>
+            </tr>
+            `);
+
+        listaFuncionarios = funcionariosHTML.join('');
+        let tabela = document.querySelector('tbody');
+        tabela.innerHTML = listaFuncionarios;
     </script>
 </body>
 </html>
