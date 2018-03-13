@@ -9,7 +9,6 @@ let configuracoes = {
     headers: {
         'Accept': 'application/json',
         'Content-type': 'application/json'
-        //'Accept': 'text/html'
     }
 };
 
@@ -20,7 +19,7 @@ let client = http.request(configuracoes, res => {
 });
 
 let produto = {
-    titulo: 'mais sobre node',
+    titulo: '',
     descricao:  'node, js e um poco de http', 
     preco: 100
 };

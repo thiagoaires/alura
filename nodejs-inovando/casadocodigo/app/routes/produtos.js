@@ -31,9 +31,9 @@ module.exports = app => {
 
         if (erros){
             res.format({
-                html: () => res.render('produtos/form', {errosValidacao:erros,produto:produto})
+                html: () => res.status(400).render('produtos/form', {errosValidacao:erros,produto:produto})
                 ,
-                json: () => res.json(erros)
+                json: () => res.status(400).json(erros)
             })
             
             return;
