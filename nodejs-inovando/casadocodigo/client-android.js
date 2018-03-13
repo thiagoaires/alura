@@ -1,16 +1,18 @@
 let http = require('http');
 
 let configuracoes = {
+    
     hostname: 'localhost',
     port: 3000,
-    path: '/produtos'
+    path: '/produtos',
+    headers: {
+        'Accept': 'application/json'
+        //'Accept': 'text/html'
+    }
 };
 
-http.get(configuracoes, function (res) {
+http.get(configuracoes, res => {
 
     console.log(res.statusCode);
-    res.on('data', function (body) {
-
-        console.log(body);
-    });
+    res.on('data', body => console.log(`Corpo: ${body}`));
 });

@@ -1,50 +1,58 @@
-module.exports = function (app) {
+module.exports = app => {
 
-    let listaProdutos = function (req, res) {
+    let listaProdutos = (req, res) => {
         let connection = app.infra.connectionFactory();
         let produtosDAO = new app.infra.ProdutosDAO(connection);
 
-        produtosDAO.lista(function (erros, resultados) {
-
-            res.render('produtos/lista', {
-
-                lista: resultados
-            });
-        });
+        produtosDAO.lista((erros, resultados) =>
+            res.format({
+                html: () => res.render('produtos/lista', {
+                    lista: resultados
+                }),
+                json: () => res.json(resultados)
+            })
+        );
 
         connection.end();
     };
 
     app.get('/produtos', listaProdutos);
 
-    app.get('/produtos/form', function (req, res) {
+    app.get('/produtos/form', (req, res) => res.render('produtos/form',{errosValidacao:{},produto:{}}));
 
-        res.render('produtos/form');
-
-    });
-
-    app.post('/produtos', function (req, res) {
+    app.post('/produtos', (req, res) => {
 
         let produto = req.body;
-        console.log(produto);
+        
+        req.assert('titulo', 'Titulo Obrigatorio').notEmpty();
+        req.assert('preco', 'Formato Invalido').isFloat();
+
+        let erros  = req.validationErrors();
+
+        if (erros){
+            res.format({
+                html: () => res.render('produtos/form', {errosValidacao:erros,produto:produto})
+                ,
+                json: () => res.json(erros)
+            })
+            
+            return;
+        }
 
         let connection = app.infra.connectionFactory();
         let produtosDAO = new app.infra.ProdutosDAO(connection);
 
-        produtosDAO.salva(produto, function (erros, resultados) {
-
+        produtosDAO.salva(produto, (erros, resultados) => {
+            console.log(erros);
             res.redirect('/produtos');
         });
 
 
     });
 
-    app.get('produtos/detalhe', function () {
+    app.get('produtos/detalhe', () => produtosDAO.carrega(id, callback));
 
-        produtosDAO.carrega(id, callback)
-    });
-
-    app.get('produtos/detalhe', function () {
+    app.get('produtos/detalhe', () => {
 
         let connection = app.infra.connectionFactory();
         let produtosDAO = app.infra.produtosDAO;

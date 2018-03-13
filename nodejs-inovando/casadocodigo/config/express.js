@@ -11,9 +11,9 @@
 let express = require('express');
 let load = require('express-load');
 let bodyParser = require('body-parser');
+let expressValidator = require('express-validator');
 
-
-module.exports = function () {
+module.exports = () => {
 
     var app = express();
 
@@ -24,6 +24,9 @@ module.exports = function () {
     app.set('views', './app/views');
 
     app.use(bodyParser.urlencoded({extended: true}));
+    app.use(bodyParser.json());
+    app.use(expressValidator());
+
 
     /* ilustraçao ASCII de como funciona require e request
 
