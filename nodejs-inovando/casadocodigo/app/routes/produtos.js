@@ -1,17 +1,22 @@
 module.exports = app => {
 
-    let listaProdutos = (req, res) => {
+    let listaProdutos = (req, res, next) => {
         let connection = app.infra.connectionFactory();
         let produtosDAO = new app.infra.ProdutosDAO(connection);
 
-        produtosDAO.lista((erros, resultados) =>
+        produtosDAO.lista((erros, resultados) =>{
+            
+            if(erros){
+                return next(erros);
+            };
+
             res.format({
                 html: () => res.render('produtos/lista', {
                     lista: resultados
                 }),
                 json: () => res.json(resultados)
             })
-        );
+        });
 
         connection.end();
     };
