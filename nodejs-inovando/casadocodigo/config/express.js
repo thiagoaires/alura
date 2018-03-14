@@ -17,6 +17,8 @@ module.exports = () => {
 
     var app = express();
 
+    app.use(express.static('./app/public'));
+
     //configuraçao da engine de view
     app.set('view engine', 'ejs');
 
