@@ -30,7 +30,7 @@ module.exports = () => {
 
     /* ilustraçao ASCII de como funciona require e request
 
-    req -> ~~middlewareBodyParser ->> middlewareAutenticacao~~         funcao que trata requisicao
+    req -> ~~middlewareBodyParser ->> middlewareAutenticacao~~   funcao que trata requisicao
     
     */
 
