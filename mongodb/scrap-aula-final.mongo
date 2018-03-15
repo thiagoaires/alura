@@ -106,7 +106,7 @@ db.alunos.aggregate([
             },
             distanceField: "distancia.calculada",
             spherical: true,
-            num: 3
+            num: 4
         }
     },
     {

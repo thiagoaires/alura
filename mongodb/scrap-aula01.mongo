@@ -1,3 +1,9 @@
+/*Startando servidor*/
+
+mongod --dbpath /Users/thiago/data/db
+mongod --dbpath /Users/thiago/mongodb/db
+
+
 /**Conectando ao servidor  */
 
 mongo --host 127.0.0.1:27017
@@ -9,6 +15,11 @@ mongoimport -c alunos --jsonArray < alunos.json
 importa pro mongo >> colecao alunos >> Json Array >> arquivo alunos.json
  */
 
+
+
+
+/** Criando Collection */
+db.createCollection("alunos")
 db.alunos.insert( /* inserir valores na tabela alunos   */
     {
         "nome" : "Felipe",
