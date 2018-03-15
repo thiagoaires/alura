@@ -1,3 +1,13 @@
+/**Conectando ao servidor  */
+
+mongo --host 127.0.0.1:27017
+
+/** importando arquivos */
+
+mongoimport -c alunos --jsonArray < alunos.json
+/**
+importa pro mongo >> colecao alunos >> Json Array >> arquivo alunos.json
+ */
 
 db.alunos.insert( /* inserir valores na tabela alunos   */
     {
@@ -18,7 +28,8 @@ db.alunos.insert( /* inserir valores na tabela alunos   */
     }
 )
 
-
+db.alunos.find() /*  semelhante ao SELECT * FROM 'XXXXX' do MYSQL*/
+db.alunos.find().pretty() /*  mostra uma consulta de forma mais 'elegante'*/
 db.alunos.insert(
 {
     "nome" : "Julio",
@@ -59,3 +70,160 @@ db.alunos.insert({
         nivel: "avançado"
     }]
 })
+
+
+db.alunos.insert({
+    nome: "André",
+    data_nascimento: new Date(1991, 01, 25),
+    curso: {
+        nome: "Matemática"
+    },
+    notas: [7, 5, 9, 4.5]
+})
+
+db.alunos.insert({
+    nome: "Lúcia",
+    data_nascimento: new Date(1984, 07, 17),
+    curso: {
+        nome: "Matemática"
+    },
+    notas: [8, 9.5, 10]
+})
+
+db.alunos.find( /* fazendo a query retornar os valores */
+    {
+        nome: "Felipe"
+    }
+)
+
+db.alunos.insert(
+    {
+        nome: "Felipe",
+        curso: "Matemática"
+    }
+)
+
+db.alunos.insert({
+    nome: "Fernando",
+    data_nascimento: new Date(1994, 03, 26),
+    notas: [10, 4.5, 7], 
+    curso: {
+        nome: "Sistema de Informacao"
+    }
+})
+
+db.alunos.find({"habilidades.nome": "ingles" }) /**busca especifica dentro da tabela alunos */
+db.alunos.find({"nome": "Felipe", "habilidades.nome": "ingles" }) /**busca especifica dentro da tabela alunos */
+
+
+/* operador OR */
+db.alunos.find({
+    $or : [
+    {"curso.nome" : "Sistemas de Informacao"},
+    {"curso.nome" : "Engenharia Química"}
+    ]
+}).pretty()
+
+db.alunos.find({
+    $or : [
+    {"curso.nome" : "Sistemas de Informacao"},
+    {"curso.nome" : "Engenharia Química"},
+    {"nome" : "Daniela"}
+    ]
+}).pretty()
+
+db.alunos.find({
+    $or : [
+    {"curso.nome" : "Sistemas de Informacao"},
+    {"curso.nome" : "Engenharia Química"},
+    {"curso.nome": "Moda"}
+    ],
+    "nome" : "Daniela"
+}).pretty()
+
+
+/** OPERADOR IN */
+db.alunos.find({
+    "curso.nome": { $in : ["Sistemas de Informacao", "Engenharia Química"]}
+})
+
+/** UPDATE */
+/** trocar um resultado da query */
+db.alunos.update(
+    {"curso.nome": "Sistema de Informacao"},
+    {
+        $set :{"curso.nome": "Sistemas de Informacao"}
+    }
+)
+
+/** trocar todas as incidencias */
+db.alunos.update(
+    {"curso.nome": "Sistemas de Informacao"},
+    {
+        $set :{"curso.nome": "Sistemas De Informacao"}
+    }
+    ,
+    {
+        multi: true /** BIZU DO ALL */
+    }
+)
+
+/** Array.push() no update */
+
+db.alunos.update(
+    {"_id" : ObjectId("5aaa91ebdc5860c1e891ea20")},
+    {
+        $push : {
+            notas: 8.5
+        }
+    }
+)
+
+
+/** Array.push() teste da Alura */
+
+db.alunos.update(
+    {"_id" : ObjectId("5aaa91ebdc5860c1e891ea20")},
+    {
+        $push : {
+            notas: [8.5, 3]
+        }
+    }
+)
+/** Array.each() teste da Alura */
+
+db.alunos.update(
+    {"_id" : ObjectId("5aaa91ebdc5860c1e891ea20")},
+    {
+        $push : {
+            notas: {
+                $each : [8.5, 3]
+                }
+        }
+    }
+)
+
+/* operador maior que */
+
+db.alunos.find({
+    notas: { $gt : 5 }
+})
+
+/* Somente 1 registro */
+
+db.alunos.findOne({
+    notas: { $gt : 5 }
+})
+
+/** Ordenar de forma crescente pelo NOme */
+
+db.alunos.find().sort({"nome": 1})
+
+/** Ordenar de forma DEcrescente pelo NOme */
+
+db.alunos.find().sort({"nome": -1})
+
+
+/** Ordenar de forma DEcrescente pelo NOme limitado a 3 resultados, no caso, 3 ultimos*/
+
+db.alunos.find().sort({"nome": -1}).limit(3)

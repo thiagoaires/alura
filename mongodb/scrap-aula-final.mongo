@@ -1,0 +1,115 @@
+db.alunos.find({nome: "Felipe"}).pretty()
+{
+	"_id" : ObjectId("5aaa91ebdc5860c1e891ea20"),
+	"nome" : "Felipe",
+	"data_nascimento" : ISODate("1984-07-13T03:00:00Z"),
+	"curso" : {
+		"nome" : "Sistemas De Informacao"
+	},
+	"notas" : [
+		10,
+		9.5,
+		4.5,
+		8.5,
+		[
+			8.5,
+			3
+		],
+		8.5,
+		3
+	],
+	"habilidades" : [
+		{
+			"nome" : "ingles",
+			"nivel" : "avancado"
+		},
+		{
+			"nome" : "taekowndo",
+			"nivel" : "basico"
+		}
+	]
+}
+
+/** Atualizar/INserir endereço do Felipe */
+
+db.alunos.update({
+    "_id" : ObjectId("5aaa91ebdc5860c1e891ea20")
+},
+{
+    $set : {
+        localizacao: {
+            endereco: "Rua bandeira paulista, 600",
+            cidade: "São Paulo",
+            coordenadas: [-23.584657, -46.675932]
+        }
+    }
+}
+)
+
+/** Atualizar/INserir endereço do Felipe para o mongoDB Reconhecer*/
+
+db.alunos.update({
+    "_id" : ObjectId("5aaa91ebdc5860c1e891ea20")
+},
+{
+    $set : {
+        localizacao: {
+            endereco: "Rua bandeira paulista, 600",
+            cidade: "São Paulo",
+            coordinates: [-23.584657, -46.675932],
+            type: "Point"
+        }
+    }
+}
+)
+
+
+/** Query para agregar conjunto de dados
+
+primeiro parametro eh um hash(dicionario) */
+
+db.alunos.aggregate([   
+    {
+        $geoNear : {
+            near: {
+                coordinates: [ -23.5640265, -46.6527128 ],
+                type: "Point"
+            }
+        }
+    }
+])
+
+/** porem a query nao funciona, pois precisa-se criar uma indexaçao para a busca funcionar(definir o ponto de busca) */
+
+db.alunos.createIndex({
+    localizacao: "2dsphere"
+})
+
+/* retorno: 
+{
+	"createdCollectionAutomatically" : false,
+	"numIndexesBefore" : 1,
+	"numIndexesAfter" : 2,
+	"ok" : 1
+}
+*/
+
+
+/** nova query */
+
+db.alunos.aggregate([   
+    {
+        $geoNear : {
+            near: {
+                coordinates: [ -23.5640265, -46.6527128 ],
+                type: "Point"
+            },
+            distanceField: "distancia.calculada",
+            spherical: true,
+            num: 3
+        }
+    },
+    {
+        $skip: 1
+    }
+])
