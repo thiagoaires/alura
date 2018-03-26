@@ -28,6 +28,16 @@ class NegociacaoController {
 
     }
 
+    apaga(){
+
+        console.log('teste');
+
+        this._listaNegociacoes.esvazia();
+        this._negociacoesView.update(this._listaNegociacoes);
+        this._mensagem.texto = 'negociacoes apagadas com sucesso';
+        this.MensagemView.update(this.mensagem);
+    }
+
     _criaNegociacao() {
 
         return new Negociacao(
