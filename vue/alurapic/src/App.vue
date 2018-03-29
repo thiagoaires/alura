@@ -2,17 +2,17 @@
 
 <template>
   <div class="corpo">
-    <h1 class="centralizado">{{ titulo }}</h1>
-    <img :src="fotos.url" :alt="fotos.titulo">
-    <ul class="lista-fotos">
-      <li class="lista-fotos-item" v-for="foto in fotos">
+    <h1 class="centralizado">{{titulo}}</h1>
 
-        <div class="painel">
-          <h2 class="painel-titulo">{{foto.titulo}}</h2>
-          <div class="painel-conteudo">
-            <img class="imagem-responsiva" :src="foto.url" :alt="foto.titulo">
-          </div>
-        </div>
+    <input type="search" class="filtro" placeholder="filtre pelo titulo" 
+      @input="filtro = $event.target.value" />
+    {{filtro}}
+    <ul class="lista-fotos">
+      <li class="lista-fotos-item" v-for="foto of fotosComFiltro">
+
+        <meu-painel :titulo="foto.titulo">
+            <imagem-responsiva :src="" :alt=""/> 
+        </meu-painel>
         
       </li>
     </ul>
@@ -20,13 +20,37 @@
 </template>
 
 <script>
+import Painel from './components/shared/painel/Painel.vue';
+import ImagemResponsiva  from './components/shared/imagem-responsiva/ImagemResponsiva.vue';
+
 export default {
+
+  components: {
+    'meu-painel': Painel,
+    'imagem-responsiva': ImagemResponsiva
+
+  },
 
   data(){
     return{
       titulo: 'Alura Pic',
-      fotos: []
+      fotos: [],
+      filtro: ''
     }
+  },
+
+  computed: {
+
+   fotosComFiltro(){
+
+     if(this.filtro){
+
+       let exp = new RegExp(this.filtro.trim(), 'i')
+       return this.fotos.filter(foto => exp.test(foto.titulo));
+     } else {
+       return this.fotos
+     }
+   }
   },
 
   created(){
@@ -57,9 +81,7 @@ export default {
     display: inline-block;
   }
 
-  .imagem-responsiva{
-    width: 100%;
-  }
+ 
 
   /* estilo do painel */ 
 
