@@ -8,13 +8,15 @@ import './css/login.css';
 import './css/timeline.css';
 
 
-import {Route, Link, BrowserRouter} from 'react-router-dom'
+import {Route, BrowserRouter} from 'react-router-dom'
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<BrowserRouter>
-                  <Fragment>
-                    <Route exact path="/" component={Login} />
-                    <Route path="/timeline" component={App} />
-                  </Fragment>
-                </BrowserRouter>, document.getElementById('root'));
+ReactDOM.render(
+  <BrowserRouter>
+    <Fragment>
+      <Route exact path="/" component={Login} />
+      <Route path="/timeline" component={App} />
+    </Fragment>
+  </BrowserRouter>, document.getElementById('root')
+);
 registerServiceWorker();

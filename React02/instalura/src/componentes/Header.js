@@ -5,9 +5,9 @@ export default class Header extends Component {
     render(){
         return (
         <header className="header container">
-          <h1 className="header-logo">
+          {/* <h1 className="header-logo">
             Instalura
-          </h1>
+          </h1> */}
 
           <form className="header-busca">
             <input type="text" name="search" placeholder="Pesquisa" className="header-busca-campo"/>
@@ -26,7 +26,7 @@ export default class Header extends Component {
               </li>
             </ul>
           </nav>
-        </header>            
+        </header>
         );
     }
 }
